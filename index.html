@@ -15,9 +15,10 @@
     <header id="header" class="bg-gray-900/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-2xl font-bold text-cyan-400">Dhruv prajapati</a>
-            <nav class="hidden md:flex space-x-8">
+            <nav id="nav-menu" class="hidden md:flex space-x-8">
                 <a href="#home" class="text-gray-300 hover:text-cyan-400 transition">Home</a>
                 <a href="#about" class="text-gray-300 hover:text-cyan-400 transition">About</a>
+                <a href="#services" class="text-gray-300 hover:text-cyan-400 transition">Services</a>
                 <a href="#projects" class="text-gray-300 hover:text-cyan-400 transition">Projects</a>
                 <a href="#skills" class="text-gray-300 hover:text-cyan-400 transition">Skills</a>
                 <a href="#contact" class="text-gray-300 hover:text-cyan-400 transition">Contact</a>
@@ -30,6 +31,7 @@
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
             <a href="#home" class="block py-2 text-gray-300 hover:text-cyan-400">Home</a>
             <a href="#about" class="block py-2 text-gray-300 hover:text-cyan-400">About</a>
+            <a href="#services" class="block py-2 text-gray-300 hover:text-cyan-400">Services</a>
             <a href="#projects" class="block py-2 text-gray-300 hover:text-cyan-400">Projects</a>
             <a href="#skills" class="block py-2 text-gray-300 hover:text-cyan-400">Skills</a>
             <a href="#contact" class="block py-2 text-gray-300 hover:text-cyan-400">Contact</a>
@@ -38,7 +40,7 @@
 
     <main class="pt-20">
         <!-- Home Section -->
-        <section id="home" class="min-h-screen flex items-center bg-gray-900">
+        <section id="home" data-nav="home" class="min-h-screen flex items-center bg-gray-900">
             <div class="container mx-auto px-6 text-center">
                 <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight mb-4">
                     Hi, I'm Dhruv prajapati
@@ -56,7 +58,7 @@
         </section>
 
         <!-- About Section -->
-        <section id="about" class="py-20 bg-gray-800">
+        <section id="about" data-nav="about" class="py-20 bg-gray-800">
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl font-bold text-center mb-12 animate-on-scroll">About Me</h2>
                 <div class="flex flex-col md:flex-row items-center gap-12">
@@ -73,41 +75,100 @@
                         <p>
                             When I'm not coding, you can find me exploring the city, trying out new coffee shops, or hiking in the great outdoors.
                         </p>
+                        <a href="Dhruv_Prajapati_Resume.docx" download class="mt-8 inline-block bg-cyan-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-cyan-600 transition transform hover:scale-105">
+                            <i data-feather="download" class="inline-block w-5 h-5 mr-2 -mt-1"></i>
+                            Download My Resume
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" data-nav="services" class="py-20 bg-gray-900">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-12 animate-on-scroll">What I Do</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Service Card 1 -->
+                    <div class="bg-gray-800 p-8 rounded-lg shadow-lg text-center animate-on-scroll">
+                        <i data-feather="layout" class="w-16 h-16 text-cyan-400 mx-auto mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Web Development</h3>
+                        <p class="text-gray-400">Creating fully responsive and functional websites from scratch using the latest technologies.</p>
+                    </div>
+                    <!-- Service Card 2 -->
+                    <div class="bg-gray-800 p-8 rounded-lg shadow-lg text-center animate-on-scroll">
+                        <i data-feather="pen-tool" class="w-16 h-16 text-cyan-400 mx-auto mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">UI/UX Design</h3>
+                        <p class="text-gray-400">Designing intuitive and engaging user interfaces that provide an excellent user experience.</p>
+                    </div>
+                    <!-- Service Card 3 -->
+                    <div class="bg-gray-800 p-8 rounded-lg shadow-lg text-center animate-on-scroll">
+                        <i data-feather="smartphone" class="w-16 h-16 text-cyan-400 mx-auto mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Responsive Design</h3>
+                        <p class="text-gray-400">Ensuring your website looks and works perfectly on all devices, from desktops to mobile phones.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="py-20 bg-gray-900">
+        <section id="projects" data-nav="projects" class="py-20 bg-gray-800">
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl font-bold text-center mb-12 animate-on-scroll">My Projects</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Project Card 1 -->
-                    <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300 animate-on-scroll">
-                        <img src="https://placehold.co/600x400/1e293b/6366f1?text=Project+One" alt="Project 1" class="w-full h-56 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">E-commerce Platform</h3>
-                            <p class="text-gray-400 mb-4">A fully responsive e-commerce website built with React, featuring product filtering, a shopping cart, and a checkout process.</p>
-                            <a href="#" class="text-cyan-400 hover:underline">View Project &rarr;</a>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                    
+                    <!-- Featured Project -->
+                    <div class="lg:col-span-2 bg-gray-900 rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300 animate-on-scroll">
+                        <div class="md:flex">
+                            <div class="md:w-1/2">
+                                <img src="https://placehold.co/800x600/1e293b/6366f1?text=Featured+Project" alt="Featured Project" class="w-full h-full object-cover">
+                            </div>
+                            <div class="p-8 md:w-1/2 flex flex-col justify-center">
+                                <h3 class="text-2xl font-bold mb-3 text-cyan-400">Featured: E-commerce Platform</h3>
+                                <p class="text-gray-400 mb-4">A fully responsive e-commerce website built with React, featuring product filtering, a shopping cart, and a checkout process. This project demonstrates my ability to build complex, stateful applications.</p>
+                                <div class="flex items-center space-x-6 mt-4">
+                                    <a href="#" class="flex items-center text-cyan-400 hover:underline font-semibold">
+                                        <i data-feather="link" class="w-5 h-5 mr-2"></i> Live Demo
+                                    </a>
+                                    <a href="#" class="flex items-center text-cyan-400 hover:underline font-semibold">
+                                        <i data-feather="github" class="w-5 h-5 mr-2"></i> GitHub Repo
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <!-- Project Card 2 -->
-                    <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300 animate-on-scroll">
+
+                    <!-- Other Project 1 -->
+                    <div class="bg-gray-900 rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300 animate-on-scroll">
                         <img src="https://placehold.co/600x400/1e293b/ec4899?text=Project+Two" alt="Project 2" class="w-full h-56 object-cover">
                         <div class="p-6">
                             <h3 class="text-xl font-bold mb-2">Task Management App</h3>
                             <p class="text-gray-400 mb-4">A sleek and intuitive task management application to help users stay organized and productive. Built with Vue.js and Firebase.</p>
-                            <a href="#" class="text-cyan-400 hover:underline">View Project &rarr;</a>
+                             <div class="flex items-center space-x-6 mt-4">
+                                <a href="#" class="flex items-center text-cyan-400 hover:underline">
+                                    <i data-feather="link" class="w-4 h-4 mr-2"></i> Live Demo
+                                </a>
+                                <a href="#" class="flex items-center text-cyan-400 hover:underline">
+                                    <i data-feather="github" class="w-4 h-4 mr-2"></i> GitHub Repo
+                                </a>
+                            </div>
                         </div>
                     </div>
-                    <!-- Project Card 3 -->
-                    <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300 animate-on-scroll">
+
+                    <!-- Other Project 2 -->
+                    <div class="bg-gray-900 rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-2 transition-transform duration-300 animate-on-scroll">
                         <img src="https://placehold.co/600x400/1e293b/f59e0b?text=Project+Three" alt="Project 3" class="w-full h-56 object-cover">
                         <div class="p-6">
                             <h3 class="text-xl font-bold mb-2">Portfolio Website</h3>
                             <p class="text-gray-400 mb-4">The very portfolio you are looking at! Designed and built from scratch using HTML, Tailwind CSS, and JavaScript.</p>
-                            <a href="#" class="text-cyan-400 hover:underline">View Project &rarr;</a>
+                             <div class="flex items-center space-x-6 mt-4">
+                                <a href="#" class="flex items-center text-cyan-400 hover:underline">
+                                    <i data-feather="link" class="w-4 h-4 mr-2"></i> Live Demo
+                                </a>
+                                <a href="#" class="flex items-center text-cyan-400 hover:underline">
+                                    <i data-feather="github" class="w-4 h-4 mr-2"></i> GitHub Repo
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -115,7 +176,7 @@
         </section>
 
         <!-- Skills Section -->
-        <section id="skills" class="py-20 bg-gray-800">
+        <section id="skills" data-nav="skills" class="py-20 bg-gray-900">
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl font-bold text-center mb-12 animate-on-scroll">Technical Skills</h2>
                 <div class="flex flex-wrap justify-center items-center gap-8">
@@ -156,25 +217,25 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-20 bg-gray-900">
+        <section id="contact" data-nav="contact" class="py-20 bg-gray-800">
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl font-bold text-center mb-4 animate-on-scroll">Get In Touch</h2>
                 <p class="text-center text-gray-400 mb-12 max-w-2xl mx-auto animate-on-scroll">I'm currently available for freelance work and open to new opportunities. If you have a project in mind or just want to say hello, feel free to reach out!</p>
                 <form id="contact-form" class="max-w-xl mx-auto animate-on-scroll">
                     <div class="mb-4">
-                        <input type="text" placeholder="Your Name" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" required>
+                        <input type="text" placeholder="Your Name" class="w-full px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" required>
                     </div>
                     <div class="mb-4">
-                        <input type="email" placeholder="Your Email" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" required>
+                        <input type="email" placeholder="Your Email" class="w-full px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" required>
                     </div>
                     <div class="mb-4">
-                        <textarea placeholder="Your Message" rows="5" class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" required></textarea>
+                        <textarea placeholder="Your Message" rows="5" class="w-full px-4 py-2 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" required></textarea>
                     </div>
                     <button type="submit" class="w-full bg-cyan-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-cyan-600 transition">
                         Send Message
                     </button>
                 </form>
-                 <div id="form-message" class="text-center mt-4"></div>
+                 <div id="form-message" class="max-w-xl mx-auto mt-4 p-3 rounded-lg text-sm"></div>
             </div>
         </section>
     </main>
@@ -182,6 +243,12 @@
     <!-- Footer -->
     <footer class="bg-gray-800 py-8">
         <div class="container mx-auto px-6 text-center text-gray-400">
+             <div class="mb-4">
+                <a href="#home" class="px-3 hover:text-cyan-400 transition">Home</a>
+                <a href="#about" class="px-3 hover:text-cyan-400 transition">About</a>
+                <a href="#projects" class="px-3 hover:text-cyan-400 transition">Projects</a>
+                <a href="#contact" class="px-3 hover:text-cyan-400 transition">Contact</a>
+            </div>
             <div class="flex justify-center space-x-6 mb-4">
                 <a href="#" class="hover:text-cyan-400"><i data-feather="github"></i></a>
                 <a href="#" class="hover:text-cyan-400"><i data-feather="linkedin"></i></a>
