@@ -1,0 +1,29 @@
+/* We are primarily using Tailwind CSS for styling directly in the HTML. */
+/* This file is for any custom CSS that might be needed. */
+
+/* Custom styles can go here. For example: */
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Add a subtle shadow to the header on scroll */
+#header.scrolled {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    background-color: rgba(23, 37, 51, 0.9); /* A slightly more opaque background */
+}
+
+/* Style for the typewriter cursor */
+#typewriter::after {
+    content: '|';
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    from, to {
+        color: transparent;
+    }
+    50% {
+        color: #22d3ee; /* cyan-400 */
+    }
+}
