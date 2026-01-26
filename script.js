@@ -1,117 +1,142 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
 
-    // Initialize Feather Icons
-    feather.replace();
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    const navLinks = document.querySelectorAll('.nav-link');
 
-    // --- Header Scroll Effect ---
-    const header = document.getElementById('header');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
+    // --- Mobile Navigation Toggle ---
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+
+    navLinks.forEach(link => link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+    }));
+
+    // --- Theme Toggle (Light/Dark Mode) ---
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const currentTheme = localStorage.getItem('theme') || 'light';
+
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    themeIcon.src = currentTheme === 'light' ? './assets/icons/sun.svg' : './assets/icons/moon.svg';
+
+    themeToggle.addEventListener('click', () => {
+        let theme = document.documentElement.getAttribute('data-theme');
+        if (theme === 'light') {
+            theme = 'dark';
+            themeIcon.src = './assets/icons/moon.svg';
         } else {
-            header.classList.remove('scrolled');
+            theme = 'light';
+            themeIcon.src = './assets/icons/sun.svg';
         }
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
     });
 
-    // --- Mobile Menu Toggle ---
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    mobileMenuButton.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-    });
-    
-    // Close mobile menu when a link is clicked
-    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-    mobileMenuLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenu.classList.add('hidden');
-        });
-    });
+    // --- Active Nav Link on Scroll ---
+    const sections = document.querySelectorAll('section[id]');
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.6
+    };
 
-
-    // --- Typewriter Effect ---
-    const typewriterElement = document.getElementById('typewriter');
-    const texts = ["A Creative Developer", "A Problem Solver", "A Lifelong Learner"];
-    let textIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-
-    function type() {
-        const currentText = texts[textIndex];
-        if (isDeleting) {
-            // Deleting
-            typewriterElement.textContent = currentText.substring(0, charIndex - 1);
-            charIndex--;
-            if (charIndex === 0) {
-                isDeleting = false;
-                textIndex = (textIndex + 1) % texts.length;
-            }
-        } else {
-            // Typing
-            typewriterElement.textContent = currentText.substring(0, charIndex + 1);
-            charIndex++;
-            if (charIndex === currentText.length) {
-                // Pause at the end of the word
-                setTimeout(() => { isDeleting = true; }, 2000);
-            }
-        }
-        
-        const typeSpeed = isDeleting ? 100 : 200;
-        setTimeout(type, typeSpeed);
-    }
-    
-    // Start the typewriter effect
-    setTimeout(type, 1000);
-
-
-    // --- Smooth Scrolling for Navigation ---
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
+    const sectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === entry.target.id) {
+                        link.classList.add('active');
+                    }
                 });
             }
         });
+    }, observerOptions);
+
+    sections.forEach(section => {
+        sectionObserver.observe(section);
     });
 
-    // --- Scroll to Top Button ---
-    const scrollToTopBtn = document.getElementById('scroll-to-top');
+    // --- Animate Elements on Scroll ---
+    const scrollElements = document.querySelectorAll('.animate-on-scroll');
+    const scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                scrollObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    scrollElements.forEach(el => {
+        scrollObserver.observe(el);
+    });
+
+    // --- Back to Top Button ---
+    const backToTopButton = document.querySelector('.back-to-top');
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            scrollToTopBtn.classList.remove('hidden');
+        if (window.pageYOffset > 300) {
+            backToTopButton.classList.add('visible');
         } else {
-            scrollToTopBtn.classList.add('hidden');
+            backToTopButton.classList.remove('visible');
         }
     });
 
-    scrollToTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-    
     // --- Contact Form Handling ---
     const contactForm = document.getElementById('contact-form');
-    const formMessage = document.getElementById('form-message');
+    const formStatus = document.getElementById('form-status');
 
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
+    contactForm.addEventListener('submit', function(event) {
+        event.preventDefault();
         
-        // Simulate form submission
-        formMessage.textContent = 'Thank you for your message! I will get back to you soon.';
-        formMessage.classList.add('text-green-400');
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
         
-        contactForm.reset();
+        // Basic validation
+        if (name === '' || email === '' || message === '') {
+            formStatus.textContent = 'Please fill out all fields.';
+            formStatus.style.color = 'red';
+            return;
+        }
 
+        formStatus.textContent = 'Sending...';
+        formStatus.style.color = 'var(--secondary-color)';
+
+        // --- MOCKUP for EmailJS integration ---
+        // Replace this with your actual EmailJS code.
         setTimeout(() => {
-            formMessage.textContent = '';
-            formMessage.classList.remove('text-green-400');
-        }, 5000);
-    });
+            // This mimics a successful submission
+            console.log({ name, email, message });
+            formStatus.textContent = 'Message sent successfully!';
+            formStatus.style.color = 'green';
+            contactForm.reset();
 
+            // Reset status message after a few seconds
+            setTimeout(() => {
+                formStatus.textContent = '';
+            }, 5000);
+        }, 1000);
+        
+        /*
+        // --- ACTUAL EmailJS Integration (Example) ---
+        // 1. Sign up for EmailJS and get your Service ID, Template ID, and Public Key.
+        // 2. Add the EmailJS SDK to your HTML head: <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+        
+        emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this, 'YOUR_PUBLIC_KEY')
+            .then(() => {
+                formStatus.textContent = 'Message sent successfully!';
+                formStatus.style.color = 'green';
+                contactForm.reset();
+            }, (error) => {
+                formStatus.textContent = 'Failed to send message. Please try again.';
+                formStatus.style.color = 'red';
+                console.log('FAILED...', error);
+            });
+        */
+    });
 });
